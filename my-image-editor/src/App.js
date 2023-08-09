@@ -3,6 +3,7 @@ import FilerobotImageEditor, {
   TABS,
   TOOLS,
 } from 'react-filerobot-image-editor';
+import Test from './images/test.jpg';
 
 function App() {
   const [isImgEditorShown, setIsImgEditorShown] = useState(false);
@@ -15,12 +16,14 @@ function App() {
     setIsImgEditorShown(false);
   };
 
+  //const originalImage = 
+
   return (
     <div>
       <button onClick={openImgEditor}>Open Filerobot image editor</button>
       {isImgEditorShown && (
         <FilerobotImageEditor
-          source="https://scaleflex.airstore.io/demo/stephen-walker-unsplash.jpg"
+          source={Test}
           onSave={(editedImageObject, designState) =>
             console.log('saved', editedImageObject, designState)
           }
