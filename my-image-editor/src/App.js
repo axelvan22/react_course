@@ -71,9 +71,9 @@ function App() {
               },
             ],
           }}
-          tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK]} // or {['Adjust', 'Annotate', 'Watermark']}
+          tabsIds={[TABS.ADJUST, TABS.ANNOTATE]} // or {['Adjust', 'Annotate', 'Watermark']}
           defaultTabId={TABS.ANNOTATE} // or 'Annotate'
-          defaultToolId={TOOLS.TEXT} // or 'Text'
+          defaultToolId={TOOLS.IMAGE} // or 'Text'
         />
       )}
     </div>
