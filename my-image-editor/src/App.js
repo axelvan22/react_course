@@ -8,19 +8,32 @@ import Test from './images/test.jpg';
 function App() {
   const [isImgEditorShown, setIsImgEditorShown] = useState(false);
 
+  // for the state of the button Opening the image editor
+  const [disabled, setDisabled] = useState(false);
+
   const openImgEditor = () => {
     setIsImgEditorShown(true);
   };
 
   const closeImgEditor = () => {
     setIsImgEditorShown(false);
+    disableButton(false);
+  };
+
+  const disableButton = (bool) => {
+    setDisabled(bool);
   };
 
   //const originalImage = 
 
   return (
     <div>
-      <button onClick={openImgEditor}>Open Filerobot image editor</button>
+      <button disabled={disabled} 
+              onClick={() => {
+                      openImgEditor();
+                      disableButton(true);
+                      }
+                  }>Open Filerobot image editor</button>
       {isImgEditorShown && (
         <FilerobotImageEditor
           source={Test}
@@ -31,7 +44,7 @@ function App() {
           annotationsCommon={{
             fill: '#ff0000',
           }}
-          Text={{ text: 'Filerobot...' }}
+          Text={{ text: 'What do you want to write?' }}
           Rotate={{ angle: 90, componentType: 'slider' }}
           Crop={{
             presetsItems: [
