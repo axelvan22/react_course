@@ -32,8 +32,8 @@ function App() {
               onClick={() => {
                       openImgEditor();
                       disableButton(true);
-                      }
-                  }>Open Filerobot image editor</button>
+                            }
+                      }>Open Filerobot image editor</button>
       {isImgEditorShown && (
         <FilerobotImageEditor
           source={Test}
