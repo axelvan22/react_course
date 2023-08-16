@@ -14,6 +14,7 @@ function App() {
   const handleFileChange = (e) => {
     if (e.target.files) {
       setImage(URL.createObjectURL(e.target.files[0]));
+      openImgEditor();
     }
   };
 
@@ -30,8 +31,6 @@ function App() {
     <div>
       <label for="uploadFile">Choose a picture:</label>
       <input type="file" accept="image/png, image/jpeg" id="uploadFile" onChange={handleFileChange} />
-
-      <div>{image && !isImgEditorShown && openImgEditor()}</div>
       {isImgEditorShown && (
         <FilerobotImageEditor
           source={image}
