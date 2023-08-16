@@ -33,7 +33,7 @@ function FileBrowse() {
     <div>
       <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
 
-      <div>{file && `${file.name} - ${file.type}`}</div>
+      <div>{file && false && `${file.name} - ${file.type}`}</div>
 
       <button onClick={handleUploadClick}>Upload</button>
     </div>

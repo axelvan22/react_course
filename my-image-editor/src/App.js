@@ -3,13 +3,19 @@ import FilerobotImageEditor, {
   TABS,
   TOOLS,
 } from 'react-filerobot-image-editor';
-import Test from './images/test.jpg';
+//import Test from './images/test.jpg';
 
 function App() {
   const [isImgEditorShown, setIsImgEditorShown] = useState(false);
 
-  // for the state of the button Opening the image editor
-  const [disabled, setDisabled] = useState(false);
+  // for the background image
+  const [image, setImage] = useState(null)
+
+  const handleFileChange = (e) => {
+    if (e.target.files) {
+      setImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   const openImgEditor = () => {
     setIsImgEditorShown(true);
@@ -17,26 +23,18 @@ function App() {
 
   const closeImgEditor = () => {
     setIsImgEditorShown(false);
-    disableButton(false);
   };
 
-  const disableButton = (bool) => {
-    setDisabled(bool);
-  };
-
-  //const originalImage = 
 
   return (
     <div>
-      <button disabled={disabled} 
-              onClick={() => {
-                      openImgEditor();
-                      disableButton(true);
-                            }
-                      }>Open Filerobot image editor</button>
+      <label for="uploadFile">Choose a picture:</label>
+      <input type="file" accept="image/png, image/jpeg" id="uploadFile" onChange={handleFileChange} />
+
+      <div>{image && !isImgEditorShown && openImgEditor()}</div>
       {isImgEditorShown && (
         <FilerobotImageEditor
-          source={Test}
+          source={image}
           onSave={(editedImageObject, designState) =>
             console.log('saved', editedImageObject, designState)
           }
@@ -46,47 +44,6 @@ function App() {
           }}
           Text={{ text: 'What do you want to write?' }}
           Rotate={{ angle: 90, componentType: 'slider' }}
-          Crop={{
-            presetsItems: [
-              {
-                titleKey: 'classicTv',
-                descriptionKey: '4:3',
-                ratio: 4 / 3,
-                // icon: CropClassicTv, // optional, CropClassicTv is a React Function component. Possible (React Function component, string or HTML Element)
-              },
-              {
-                titleKey: 'cinemascope',
-                descriptionKey: '21:9',
-                ratio: 21 / 9,
-                // icon: CropCinemaScope, // optional, CropCinemaScope is a React Function component.  Possible (React Function component, string or HTML Element)
-              },
-            ],
-            presetsFolders: [
-              {
-                titleKey: 'socialMedia', // will be translated into Social Media as backend contains this translation key
-                // icon: Social, // optional, Social is a React Function component. Possible (React Function component, string or HTML Element)
-                groups: [
-                  {
-                    titleKey: 'facebook',
-                    items: [
-                      {
-                        titleKey: 'profile',
-                        width: 180,
-                        height: 180,
-                        descriptionKey: 'fbProfileSize',
-                      },
-                      {
-                        titleKey: 'coverPhoto',
-                        width: 820,
-                        height: 312,
-                        descriptionKey: 'fbCoverPhotoSize',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          }}
           tabsIds={[TABS.ADJUST, TABS.ANNOTATE]} // or {['Adjust', 'Annotate', 'Watermark']}
           defaultTabId={TABS.ANNOTATE} // or 'Annotate'
           defaultToolId={TOOLS.IMAGE} // or 'Text'
