@@ -31,7 +31,7 @@ function FileBrowse() {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
 
       <div>{file && `${file.name} - ${file.type}`}</div>
 
