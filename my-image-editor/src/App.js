@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { saveAs } from 'file-saver';
 import FilerobotImageEditor, {
   TABS,
   TOOLS,
@@ -29,13 +30,18 @@ function App() {
 
   return (
     <div>
-      <label for="uploadFile">Choose a picture:</label>
+      <label htmlFor="uploadFile">Choose a picture:</label>
       <input type="file" accept="image/png, image/jpeg" id="uploadFile" onChange={handleFileChange} />
       {isImgEditorShown && (
         <FilerobotImageEditor
           source={image}
-          onSave={(editedImageObject, designState) =>
-            console.log('saved', editedImageObject, designState)
+          onSave={(editedImageObject, designState) =>{
+            console.log('saved', editedImageObject, designState);
+            editedImageObject.imageCanvas.toBlob(function(blob) {
+              saveAs(blob, editedImageObject.fullName);
+              }, "image/png");
+          }
+            
           }
           onClose={closeImgEditor}
           annotationsCommon={{
